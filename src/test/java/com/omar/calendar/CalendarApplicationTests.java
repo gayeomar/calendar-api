@@ -24,10 +24,6 @@ public class CalendarApplicationTests {
     public void contextLoads() {
     }
 
-    @Test
-    public void testReadUser(){
-        ResponseEntity<UserTO> response = restTemplate.getForEntity("/v1/user/omar@gmail.com", request, UserTO.class)
 
-    }
 
 }
