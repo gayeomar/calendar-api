@@ -1,0 +1,100 @@
+
+= Omar's Calendar API
+
+Doc Writer GayeOmar@hotmail.com
+
+Last changed: 09/24/2018
+
+
+= Summary
+* Tech stack and APIs
+** Spring Boot, Spring Data, Bean validation, HSQLDB embedded db
+** API Documentation: Swagger
+* 3 end-points
+** User
+*** create user
+*** read user
+** Calendar
+*** create calendar
+*** read calendar
+** Event
+*** create calendar event
+*** read calendar event by calandar id
+*** read calendar event by date with security implementation (user will only see their own calendar events)
+**** Security: No time to implement  OAuth2/JWT Token system. I just use a user_api_key table:
+table maps user_id to an api_key
+when user calls, api_key is attached to the header
+before processing the request, I check and match user_id and api_key
+(see data.sql)
+
+
+= Get the code
+git clone https://github.com/gayeomar/calendar-api.git
+
+= Build
+* From the root folder, type `./gradlew clean build -x test`
+* If you do have your own gradle, go for `gradle clean build -x test`
+
+= Run
+* `./gradlew bootRun`
+* app will run on port 8080 if no port specified. You can specify a port like this `PORT=8090 gradle bootRun`
+* Load the swagger page:
+`http://localhost:8080/swagger-ui.html`
+** You will all end-points, sample json, *all the curl expressions*, etc.
+** When the app load, two users are created: see data.sql
+*** `INSERT INTO user (id, first_name, last_name, email) VALUES (1, 'Omar', 'Gaye', 'omar@gmail.com')`
+***  `INSERT INTO user (id, first_name, last_name, email) VALUES (2, 'Bill', 'Smith', 'bill@gmail.com')`
+
+= Test
+* Create a user
+** end-point: `localhost:8080/v1/user`
+** Method: POST
+** JSON:
+`{
+    "firstName": "Omar2",
+    "lastName": "Gaye2",
+    "email": "omar2@gmail.com"
+  }`
+* Read User by email
+** End-point: `localhost:8080/v1/user/omar@gmail.com`
+** Method: GET
+* Create a new Calendar
+** end-point: `localhost:8080/v1/user`
+** Method: POST
+** JSON:
+`{
+ 	"name" : "Cal_Omar",
+ 	"user":{
+ 	"id":1,
+     "firstName": "Omar",
+     "lastName": "Gaye",
+     "email": "omar@gmail.com"
+ 	}
+ }`
+* Create an Event
+** end-point: `localhost:8080/v1/user`
+** Method: POST
+** JSON:
+`{
+    "calendarName" : "Cal_Omar",
+    "title" : "Daily stand-up",
+    "location" : "War room",
+    "eventDate" : "2018-10-01",
+    "startTime": "10:00:00",
+    "endTime" : "10:30:00",
+    "attendees" : "1,2",
+    "reminderTime" : "09:45:00",
+    "isReminderSent": "Y"
+  }`
+** Test Bean validation by using wrong date format for example
+* List event by Calender name
+** end-point: `http://localhost:8080/v1/event/Cal_Omar`
+** Method: GET
+* List event by date with security check (user can only see event from their calandar)
+** end-point: `localhost:8080/v1/event/date/2018-10-01`
+** Method: GET
+** Header config:
+`Content-Type:application/json
+ CALENDAR_API_KEY:key123`
+
+
