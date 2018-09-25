@@ -43,7 +43,7 @@ public class EventController {
     @ApiOperation(value = "Read Calendar Event", notes = "Read a Calendar Event by Id", httpMethod = "GET", produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Event retrieved successfully", response = ResponseEntity.class),
-            @ApiResponse(code = 400, message = "An exception occurred while retrieving a calendar event", response = Error.class),
+            @ApiResponse(code = 400, message = "An exception occurred while retrieving a calendar event", response = ResponseEntity.class),
             @ApiResponse(code = 500, message = "An internal server error occurred while retrieving a calendar event")})
     @GetMapping(value = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<EventTO>> readEvents(@PathVariable(value = "name") String name) {
@@ -56,7 +56,7 @@ public class EventController {
     @ApiOperation(value = "Create Calendar Event;", notes = "Create a new Calendar Event", httpMethod = "POST", produces = "application/json")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Calendar event created successfully", response = String.class),
-            @ApiResponse(code = 400, message = "An exception occurred while creating a calendar event", response = Error.class),
+            @ApiResponse(code = 400, message = "An exception occurred while creating a calendar event", response = EventTO.class),
             @ApiResponse(code = 500, message = "An internal server error occurred while creating a calendar event")})
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<EventTO>  createEvent(@Valid @RequestBody EventTO eventTo) {
@@ -75,11 +75,11 @@ public class EventController {
      * @param apiKey The User API Key
      * @return A list of calendar events visible to the caller
      */
-    @ApiOperation(value = "Create Calendar Event;", notes = "Create a new Calendar Event", httpMethod = "POST", produces = "application/json")
+    @ApiOperation(value = "Read current User Calendar Event by date;", notes = "Read current User Calendar Event by date", httpMethod = "POST", produces = "application/json")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Calendar event created successfully", response = String.class),
-            @ApiResponse(code = 400, message = "An exception occurred while creating a calendar event", response = Error.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while creating a calendar event")})
+            @ApiResponse(code = 200, message = "Calendar events retrieved successfully", response = String.class),
+            @ApiResponse(code = 400, message = "An exception occurred while retrieving calendar events", response = ResponseEntity.class),
+            @ApiResponse(code = 500, message = "An internal server error occurred while retrieving calendar events")})
     @GetMapping(value = "date/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<EventTO>> getEventByDate(@PathVariable(value = "date") String dateStr,
             @RequestHeader(name = CalendarConstant.CALENDAR_API_KEY, required = true) final String apiKey) {

@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS user(
 ALTER TABLE user ADD CONSTRAINT email_unique unique (email);
 
 INSERT INTO user (id, first_name, last_name, email) VALUES (1, 'Omar', 'Gaye', 'omar@gmail.com');
-
 INSERT INTO user (id, first_name, last_name, email) VALUES (2, 'Bill', 'Smith', 'bill@gmail.com');
 
 --Calendar

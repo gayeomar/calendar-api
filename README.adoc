@@ -25,7 +25,17 @@ Last changed: 09/24/2018
 table maps user_id to an api_key
 when user calls, api_key is attached to the header
 before processing the request, I check and match user_id and api_key
-(see data.sql)
+(see data.sql) Add key if needed.
+
+= Release Note:
+In a production release mode, the app should be splitted into two apps:
+
+* `calendar-api`
+** will generate a regular jar as artifact
+** will just host the DTOs (EventTO, UserTO, CalendarTO) ) and all the Controller classes (e.g.; CalendarControllerApi) Interface with the swagger cumbersome annotation
+* `calendar-service`
+** the spring boot app, will have calendar-api as a dependency
+** the Controller classes that implement their counterpart in calendar-api (e.g.; CalendarController implements CalendarControllerApi)
 
 
 = Get the code
