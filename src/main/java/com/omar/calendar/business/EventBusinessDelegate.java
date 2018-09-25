@@ -64,7 +64,8 @@ public class EventBusinessDelegate {
         }
 
         //Narrow it down to given date events
-        List<EventTO> givenDateEvents = allEvents.stream()
+        List<EventTO> givenDateEvents = allEvents
+                .stream()
                 .filter(it -> it.getEventDate().equals(dateStr))
                 .collect(Collectors.toList());
         if(givenDateEvents == null){
@@ -73,7 +74,8 @@ public class EventBusinessDelegate {
 
         //Narrow it down to current user Calendar
         //Note: can be combined with above filter
-        List<EventTO> userEvents = givenDateEvents.stream()
+        List<EventTO> userEvents = givenDateEvents
+                .stream()
                 .filter(it -> it.getCalendarName().equalsIgnoreCase(calendarName))
                 .collect(Collectors.toList());
 
