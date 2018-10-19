@@ -1,1 +1,8 @@
-rootProject.name = 'calendar-api'
+rootProject.name = 'calendar'
+
+include ':calendar-api', ':calendar-service'
+//, ':calendar-util'
+
+project(':calendar-api').projectDir = "$rootDir/calendar-api" as File
+project(':calendar-service').projectDir = "$rootDir/calendar-service" as File
+//project(':calendar-util').projectDir = "$rootDir/calendar-util" as File

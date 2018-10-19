@@ -1,0 +1,28 @@
+{"properties": [
+  {
+    "name": "config.service.endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'config.service.endpoint'"
+  },
+  {
+    "name": "omar.security.basic.enabled",
+    "type": "java.lang.Boolean",
+    "description": "Omar testing whether to enable basic authentication.",
+    "defaultValue": true
+  },
+  {
+    "name": "com.fdc.ucom.util.cache.source",
+    "type": "java.lang.String",
+    "description": "A description for 'com.fdc.ucom.util.cache.source'"
+  },
+  {
+    "name": "endpoints.enrollvaultadapter",
+    "type": "java.lang.String",
+    "description": "A description for 'endpoints.enrollvaultadapter'"
+  },
+  {
+    "name": "endpoints.ucomvault",
+    "type": "java.lang.String",
+    "description": "A description for 'endpoints.ucomvault'"
+  }
+]}
