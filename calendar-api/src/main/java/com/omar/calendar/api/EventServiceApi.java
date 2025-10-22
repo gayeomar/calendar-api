@@ -2,10 +2,10 @@ package com.omar.calendar.api;
 
 
 import com.omar.calendar.domain.to.EventTO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 
 /**
@@ -15,21 +15,21 @@ import java.util.List;
  * September 24, 2018
  *
  */
-@Api(tags = {"Event"})
+@Tag(name = "Event", description = "Event API")
 public interface EventServiceApi {
 
-    @ApiOperation(value = "Read Calendar Event", notes = "Read a Calendar Event by Id", httpMethod = "GET", produces = "application/json")
+    @Operation(summary = "Read Calendar Event", description = "Read a Calendar Event by Id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Event retrieved successfully", response = EventTO.class),
-            @ApiResponse(code = 400, message = "An exception occurred while retrieving a calendar event", response = EventTO.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while retrieving a calendar event")})
+            @ApiResponse(responseCode = "200", description = "Event retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "An exception occurred while retrieving a calendar event"),
+            @ApiResponse(responseCode = "500", description = "An internal server error occurred while retrieving a calendar event")})
     List<EventTO> readEvents(String name);
 
-    @ApiOperation(value = "Create Calendar Event;", notes = "Create a new Calendar Event", httpMethod = "POST", produces = "application/json")
+    @Operation(summary = "Create Calendar Event", description = "Create a new Calendar Event")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Calendar event created successfully", response = String.class),
-            @ApiResponse(code = 400, message = "An exception occurred while creating a calendar event", response = EventTO.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while creating a calendar event")})
+            @ApiResponse(responseCode = "201", description = "Calendar event created successfully"),
+            @ApiResponse(responseCode = "400", description = "An exception occurred while creating a calendar event"),
+            @ApiResponse(responseCode = "500", description = "An internal server error occurred while creating a calendar event")})
     EventTO  createEvent(EventTO eventTo);
 
     /**
@@ -41,11 +41,11 @@ public interface EventServiceApi {
      * @param apiKey The User API Key
      * @return A list of calendar events visible to the caller
      */
-    @ApiOperation(value = "Read current User Calendar Event by date;", notes = "Read current User Calendar Event by date", httpMethod = "POST", produces = "application/json")
+    @Operation(summary = "Read current User Calendar Event by date", description = "Read current User Calendar Event by date")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Calendar events retrieved successfully", response = String.class),
-            @ApiResponse(code = 400, message = "An exception occurred while retrieving calendar events", response = EventTO.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while retrieving calendar events")})
+            @ApiResponse(responseCode = "200", description = "Calendar events retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "An exception occurred while retrieving calendar events"),
+            @ApiResponse(responseCode = "500", description = "An internal server error occurred while retrieving calendar events")})
     List<EventTO> getEventByDate(String dateStr, final String apiKey);
 
 }

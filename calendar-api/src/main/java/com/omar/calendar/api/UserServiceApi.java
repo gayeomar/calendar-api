@@ -2,10 +2,10 @@ package com.omar.calendar.api;
 
 
 import com.omar.calendar.domain.to.UserTO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * User API
@@ -14,21 +14,21 @@ import io.swagger.annotations.ApiResponses;
  * September 24, 2018
  *
  */
-@Api(tags = {"User"})
+@Tag(name = "User", description = "User API")
 public interface UserServiceApi {
 
-    @ApiOperation(value = "Read User by email;", notes = "Read a User by email", httpMethod = "GET", produces = "application/json")
+    @Operation(summary = "Read User by email", description = "Read a User by email")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "User retrieved successfully", response = UserTO.class),
-            @ApiResponse(code = 400, message = "An exception occurred while retrieving a User", response = Error.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while retrieving a User")})
+            @ApiResponse(responseCode = "200", description = "User retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "An exception occurred while retrieving a User"),
+            @ApiResponse(responseCode = "500", description = "An internal server error occurred while retrieving a User")})
     UserTO getUser(String email);
 
-    @ApiOperation(value = "Create User;", notes = "Create a new User", httpMethod = "POST", produces = "application/json")
+    @Operation(summary = "Create User", description = "Create a new User")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "User created successfully", response = String.class),
-            @ApiResponse(code = 400, message = "An exception occurred while creating a User", response = Error.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while creating a User")})
+            @ApiResponse(responseCode = "201", description = "User created successfully"),
+            @ApiResponse(responseCode = "400", description = "An exception occurred while creating a User"),
+            @ApiResponse(responseCode = "500", description = "An internal server error occurred while creating a User")})
     UserTO createUser(UserTO userTo);
 
 }

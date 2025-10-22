@@ -1,11 +1,11 @@
 package com.omar.calendar.api;
 
 import com.omar.calendar.domain.to.CalendarTO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
 
@@ -16,21 +16,21 @@ import org.springframework.http.ResponseEntity;
  * September 24, 2018
  *
  */
-@Api(tags = {"Calendar"})
+@Tag(name = "Calendar", description = "Calendar API")
 public interface CalendarServiceApi {
 
-    @ApiOperation(value = "Read Calendar", notes = "Read a Calendar by user Id", httpMethod = "GET", produces = "application/json")
+    @Operation(summary = "Read Calendar", description = "Read a Calendar by user Id")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Calendar retrieved successfully", response = CalendarTO.class),
-            @ApiResponse(code = 400, message = "An exception occurred while retrieving a Calendar", response = Error.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while retrieving a Calendar")})
-    ResponseEntity<CalendarTO> getCalendar(@ApiParam(name = "id", value = "id", required = true) long id);
+            @ApiResponse(responseCode = "200", description = "Calendar retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "An exception occurred while retrieving a Calendar"),
+            @ApiResponse(responseCode = "500", description = "An internal server error occurred while retrieving a Calendar")})
+    ResponseEntity<CalendarTO> getCalendar(@Parameter(name = "id", description = "id", required = true) long id);
 
 
-    @ApiOperation(value = "Create Calendar;", notes = "Create a new Calendar", httpMethod = "POST", produces = "application/json")
+    @Operation(summary = "Create Calendar", description = "Create a new Calendar")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Calendar created successfully", response = CalendarTO.class),
-            @ApiResponse(code = 400, message = "An exception occurred while creating a Calendar", response = Error.class),
-            @ApiResponse(code = 500, message = "An internal server error occurred while creating a Calendar")})
-    ResponseEntity<CalendarTO>  createCalendar(@ApiParam(name = "calendarTo", value = "calendarTo", required = true) CalendarTO calendarTo);
+            @ApiResponse(responseCode = "201", description = "Calendar created successfully"),
+            @ApiResponse(responseCode = "400", description = "An exception occurred while creating a Calendar"),
+            @ApiResponse(responseCode = "500", description = "An internal server error occurred while creating a Calendar")})
+    ResponseEntity<CalendarTO>  createCalendar(@Parameter(name = "calendarTo", description = "calendarTo", required = true) CalendarTO calendarTo);
 }
